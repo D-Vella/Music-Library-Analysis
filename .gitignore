@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local DuckDB database and other scan output
+data/*
+!data/.gitkeep

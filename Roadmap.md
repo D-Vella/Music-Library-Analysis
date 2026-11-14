@@ -76,7 +76,7 @@ NAS (read-only) ──scan──▶ data/library.duckdb ──SQL──▶ conso
 **Estimated effort:** 1 session
 
 ### Tasks
-- [ ] Create the folder structure
+- [X] Create the folder structure
   ```
   music-library-analyser/
   ├── src/
@@ -96,10 +96,10 @@ NAS (read-only) ──scan──▶ data/library.duckdb ──SQL──▶ conso
   ├── requirements.txt
   └── .env               # LIBRARY_ROOT=\\NAS\music  (machine-specific, never commit)
   ```
-- [ ] Create a virtual environment and `pip install mutagen python-dotenv`
-- [ ] Add `.env`, `data/`, `.venv/` and `__pycache__/` to `.gitignore`
-- [ ] Confirm Python can see the NAS. On Windows a UNC path works directly with `pathlib`, no mapped drive needed: `Path(r"\\NAS-NAME\music").exists()`
-- [ ] Write `spikes/read_one_file.py` and run it against one MP3, one FLAC and one M4A (whichever formats you have):
+- [X] Create a virtual environment and `pip install mutagen python-dotenv`
+- [X] Add `.env`, `data/`, `.venv/` and `__pycache__/` to `.gitignore`
+- [X] Confirm Python can see the NAS. On Windows a UNC path works directly with `pathlib`, no mapped drive needed: `Path(r"\\NAS-NAME\music").exists()`
+- [X] Write `spikes/read_one_file.py` and run it against one MP3, one FLAC and one M4A (whichever formats you have):
   ```python
   import sys
   import mutagen
@@ -121,8 +121,8 @@ NAS (read-only) ──scan──▶ data/library.duckdb ──SQL──▶ conso
   if hasattr(audio, "pictures"):
       print(f"\nEmbedded pictures: {len(audio.pictures)}")
   ```
-- [ ] Note in Field Notes what surprised you: key names, list-wrapped values, anything missing
-- [ ] First commit: skeleton + spike
+- [X] Note in Field Notes what surprised you: key names, list-wrapped values, anything missing
+- [X] First commit: skeleton + spike
 
 ### Exit Criteria
 You have printed the raw tags of at least one file of each format in your library, straight off the NAS, and the skeleton is committed.
