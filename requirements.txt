@@ -1,0 +1,4 @@
+python-dotenv==1.2.4
+
+# Needed to run scratch.ipynb in VS Code / Jupyter
+ipykernel==7.4.0
