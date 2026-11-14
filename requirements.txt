@@ -2,3 +2,6 @@ python-dotenv==1.2.4
 
 # Needed to run scratch.ipynb in VS Code / Jupyter
 ipykernel==7.4.0
+
+# Strips notebook outputs on commit (run `nbstripout --install --attributes .gitattributes` after cloning)
+nbstripout==0.9.1
