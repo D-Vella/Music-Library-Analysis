@@ -1,8 +1,20 @@
 mutagen==1.48.1
 python-dotenv==1.2.4
 
+# Local analytical store + SQL reports (Phase 2)
+duckdb==2.0.0
+pyarrow==26.0.1
+
 # Needed to run scratch.ipynb in VS Code / Jupyter
 ipykernel==7.4.0
 
 # Strips notebook outputs on commit (run `nbstripout --install --attributes .gitattributes` after cloning)
 nbstripout==0.9.1
+
+# Tests for the tag reader (Phase 4)
+pytest==9.2.0
+
+# Pretty console tables (Phase 7, optional)
+rich==15.0.0
+
+# Not pip-installable: ffmpeg (CLI) is needed to generate test fixture files (Phase 4)
