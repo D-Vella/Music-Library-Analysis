@@ -134,15 +134,44 @@ You have printed the raw tags of at least one file of each format in your librar
 **Estimated effort:** 1 session
 
 ### Tasks
-- [ ] `pip install duckdb pyarrow`
-- [ ] Write `src/scanner.py` with `walk_library(root) -> Iterator[dict]` that yields one record per file (**every** file, not just audio: it'll surface `.lrc`, `.jpg`, `.cue`, `.log` and stray junk)
-- [ ] Record per file: `path`, `relative_path`, `parent_folder`, `stem` (filename without extension), `extension` (lower-cased), `size_bytes`, `modified_at`
-- [ ] Use `os.scandir` (or `Path.rglob`) and read size/mtime from the `stat` result. Don't open the files at all yet, so this stays fast
-- [ ] Write `src/store.py` with a helper that takes a list of dicts and does `CREATE OR REPLACE TABLE files AS ...` in `data/library.duckdb` (build a `pyarrow.Table.from_pylist(records)` and DuckDB can select from it directly)
-- [ ] First throwaway report, straight in the DuckDB CLI or a notebook: total size in GB, file count by extension, number of top-level (artist) folders
+- [X] `pip install duckdb pyarrow`
+- [X] Write `src/scanner.py` with `walk_library(root) -> Iterator[dict]` that yields one record per file (**every** file, not just audio: it'll surface `.lrc`, `.jpg`, `.cue`, `.log` and stray junk)
+- [X] Record per file: `path`, `relative_path`, `parent_folder`, `stem` (filename without extension), `extension` (lower-cased), `size_bytes`, `modified_at`
+- [X] Use `os.scandir` (or `Path.rglob`) and read size/mtime from the `stat` result. Don't open the files at all yet, so this stays fast
+- [X] Write `src/store.py` with a helper that takes a list of dicts and does `CREATE OR REPLACE TABLE files AS ...` in `data/library.duckdb` (build a `pyarrow.Table.from_pylist(records)` and DuckDB can select from it directly)
+- [X] First throwaway report, straight in the DuckDB CLI or a notebook: total size in GB, file count by extension, number of top-level (artist) folders
 
 ### Exit Criteria
 `files` table exists with every file in the library. You know the total size and the format breakdown, and you've noted any surprises (unexpected extensions, oddly placed files) in Field Notes.
+
+---
+
+### Pre-task — Make the project installable (~30 min)
+**Why:** A script or notebook looks for imports starting from *its own* folder, not the project root, so `notebooks/` can't see your code without `sys.path` hacks. (Databricks hides this by putting the repo root on the path for you.) Installing the project as an editable package fixes it everywhere, once.
+
+- [ ] Move the code into a named package: `src/scanner.py` → `src/music_analyser/scanner.py` (same for `store.py` etc.), with `src/music_analyser/__init__.py`
+- [ ] Add `pyproject.toml` at the repo root:
+  ```toml
+  [project]
+  name = "music-analyser"
+  version = "0.1.0"
+  requires-python = ">=3.12"
+  dependencies = ["mutagen", "duckdb", "pyarrow", "python-dotenv"]
+
+  [project.optional-dependencies]
+  dev = ["pytest", "ipykernel"]
+
+  [build-system]
+  requires = ["setuptools>=61"]
+  build-backend = "setuptools.build_meta"
+  ```
+- [ ] With the venv active: `pip install -e ".[dev]"` (`-e` = editable: Python links to your source folder, so code changes apply immediately without reinstalling)
+- [ ] Replace imports with `from music_analyser.scanner import walk_library` and delete every `sys.path` line
+- [ ] Delete `requirements.txt`, since `pyproject.toml` is now the single list of dependencies
+- [ ] In VS Code, check the notebook kernel (top right) is the project's `.venv`, not the global Python
+- [ ] Commit, then confirm a fresh terminal and a notebook can both import the package
+
+**Done when:** imports work from scripts, notebooks and tests with no `sys.path` lines anywhere.
 
 ---
 

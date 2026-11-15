@@ -17,3 +17,14 @@ I have gotten to the point of using the `mutagen` code on a single file and a nu
 so I asked Claude to explain this duplication and it turns out annoyingly there isn't a broadly agreed standard on tag naming conventions. Different applications and different devices can look for different tags. 
 What this is going to mean in the future is there is going to need to be some kind of device or programme profile so that the appropriate tags are considered. 
 The immediate concern I have though is the future database schema.
+
+`os.walk()` took me some time to get my hear around, the documetation didnt work for me so had to run some sample code I found online to get the idea of it.
+What is does is "walk" through a directory and its subdirectories. For each directory it finds it will produce 3 items: a root (where you started), a list of directories in that root and a list of files in that root.
+As an example; when pointing it at the root of my music library you get a root value of the mapped drive letter a list of directories for all of the artist names and a thumbs DB file in a list. 
+When it moves into a albums directory:
+    * The root will contain the full path of that album directory `Z:\Alestorm\Captin Morgans Revenage` * The directories list will be empty because there's no folders in there. 
+    * The files list will be full of all the files for that album `01 Alestorm - Over The Seas.flac`
+
+Note that if you want a complete path you will need to assemble it from the root and file name.
+
+I am such a Databricks developer when it comes to Python! I have no mussle memory for handling environment variables or packages.
